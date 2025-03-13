@@ -21,9 +21,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import de.florianmichael.asmfabricloader.AsmFabricLoader;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,12 +35,12 @@ public class MixinTitleScreen extends Screen {
         super(title);
     }
 
-    @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)I"))
-    public int drawAFLIndicator(DrawContext instance, TextRenderer textRenderer, String text, int x, int y, int color, Operation<Integer> original) {
+    @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/TitleScreen;drawStringWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"))
+    public void drawAFLIndicator(MatrixStack matrixStack, TextRenderer textRenderer, String s, int x, int y, int color, Operation<Void> original) {
         final int modsSize = AsmFabricLoader.getLoader().getAflMods().size();
-        instance.drawTextWithShadow(textRenderer, "AsmFabricLoader: " + modsSize + " mod" + (modsSize != 1 ? "s" : "") + " loaded", x, y - 10, color);
+        drawStringWithShadow(matrixStack, textRenderer, "AsmFabricLoader: " + modsSize + " mod" + (modsSize != 1 ? "s" : "") + " loaded", x, y - 10, color);
 
-        return original.call(instance, textRenderer, text, x, y, color);
+        original.call(matrixStack, textRenderer, s, x, y, color);
     }
 
 }
