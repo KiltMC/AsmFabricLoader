@@ -122,6 +122,14 @@ publishing {
                 basic(BasicAuthentication)
             }
         }
+        maven {
+            name = "devOS"
+            url = "https://mvn.devos.one/snapshots"
+            credentials {
+                username = System.getenv()["MAVEN_USER"]
+                password = System.getenv()["MAVEN_PASS"]
+            }
+        }
     }
     publications {
         maven(MavenPublication) {
