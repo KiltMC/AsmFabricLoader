@@ -14,6 +14,18 @@ allprojects {
 
 setupPublishing()
 
+extensions.getByType(PublishingExtension::class.java).apply {
+    repositories {
+        maven("https://mvn.devos.one/snapshots") {
+            name = "devOS"
+            credentials {
+                username = System.getenv()["MAVEN_USER"]
+                password = System.getenv()["MAVEN_PASS"]
+            }
+        }
+    }
+}
+
 val jij = configureJij()
 
 repositories {

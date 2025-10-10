@@ -17,16 +17,16 @@
 
 package de.florianmichael.asmfabricloader.hook.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import de.florianmichael.asmfabricloader.AsmFabricLoader;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+//import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+//import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+//import de.florianmichael.asmfabricloader.AsmFabricLoader;
+//import net.minecraft.client.gui.Font;
+//import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
+//import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(TitleScreen.class)
 public class MixinTitleScreen extends Screen {
@@ -35,6 +35,8 @@ public class MixinTitleScreen extends Screen {
         super(title);
     }
 
+    // Kilt: we don't need this
+    /*
     @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"))
     public void drawAFLIndicator(GuiGraphics instance, Font font, String text, int x, int y, int color, Operation<Integer> original) {
         final int modsSize = AsmFabricLoader.getLoader().getAflMods().size();
@@ -42,5 +44,5 @@ public class MixinTitleScreen extends Screen {
 
         original.call(instance, font, text, x, y, color);
     }
-
+    */
 }
